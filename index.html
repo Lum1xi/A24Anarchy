@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>A24ANARCHY // UNKNOWN SERVER</title>
+<link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap" rel="stylesheet">
+<style>
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    background: #020202;
+    color: #fff;
+    font-family: 'Share Tech Mono', monospace;
+    overflow-x: hidden;
+}
+
+/* background - ОНОВЛЕНО ДЛЯ ЛОКАЛЬНОГО ФАЙЛУ */
+body:before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    background:
+    linear-gradient(rgba(0,0,0,.7),rgba(0,0,0,.75)),
+    url("4.png"); /* <--- Змінено на локальний файл */
+    background-size: cover;
+    z-index: -2;
+    /* Додано запасний колір на випадок, якщо зображення не завантажиться */
+    background-color: #020202; 
+}
+
+body:after {
+    content: "";
+    position: fixed;
+    inset: 0;
+    background:
+    repeating-linear-gradient(
+        0deg,
+        rgba(255,255,255,.03),
+        rgba(255,255,255,.03) 1px,
+        transparent 1px,
+        transparent 4px
+    );
+    pointer-events: none;
+}
+
+/* HEADER */
+header {
+    text-align: center;
+    padding: 100px 20px 40px;
+}
+
+.logo {
+    font-size: 80px;
+    letter-spacing: 10px;
+    color: white;
+    text-shadow:
+    3px 0 red,
+    -3px 0 cyan;
+    animation: glitch 2s infinite;
+}
+
+@keyframes glitch {
+    0% { transform: none }
+    20% { transform: translate(3px,-2px) }
+    40% { transform: none }
+    60% { transform: translate(-3px,2px) }
+}
+
+/* terminal */
+.terminal {
+    max-width: 900px;
+    margin: 20px auto;
+    border: 1px solid #333;
+    background: #050505cc;
+    padding: 30px;
+    box-shadow: 0 0 40px rgba(255,0,0,.15);
+}
+
+.line {
+    color: #aaa;
+    margin: 10px 0;
+}
+
+.red { color: #ff3333; }
+.green { color: #00ff88; }
+
+/* IP */
+.ip {
+    margin: 50px auto;
+    text-align: center;
+}
+
+button {
+    background: none;
+    border: 2px solid red;
+    padding: 18px 50px;
+    font-size: 22px;
+    font-family: inherit;
+    color: red;
+    cursor: pointer;
+    transition: .3s;
+}
+
+button:hover {
+    background: red;
+    color: black;
+    box-shadow: 0 0 40px red;
+}
+
+#msg {
+    margin-top: 15px;
+    color: #00ffff;
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+
+/* stats */
+.container {
+    max-width: 1000px;
+    margin: auto;
+    padding: 20px;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+}
+
+.card {
+    background: #080808dd;
+    border: 1px solid #333;
+    padding: 30px;
+    text-align: center;
+    transition: transform 0.2s;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+}
+
+.number {
+    font-size: 40px;
+    color: red;
+    transition: color 0.2s, text-shadow 0.2s;
+}
+
+.card:hover .number {
+  text-shadow: 0 0 15px red;
+}
+
+.label {
+    color: #777;
+    margin-top: 10px;
+}
+
+/* logs */
+.logs {
+    margin-top: 40px;
+    background: #050505;
+    border-left: 3px solid red;
+    padding: 30px;
+}
+
+.logs p {
+    margin: 15px;
+}
+
+footer {
+    margin-top: 80px;
+    padding: 30px;
+    text-align: center;
+    border-top: 1px solid #222;
+    color: #555;
+}
+
+@media(max-width: 700px) {
+    .logo { font-size: 45px; }
+    .grid { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+
+<header>
+    <div class="logo">A24ANARCHY</div>
+</header>
+
+<div class="terminal">
+    <div class="line">> Initializing connection...</div>
+    <div class="line">> Searching world files...</div>
+    <div class="line red">> WARNING: SPAWN DESTROYED</div>
+    <div class="line green">> Access granted.</div>
+</div>
+
+<div class="ip">
+    <button onclick="copyIP()">
+        COPY SERVER ADDRESS
+        <br>
+        MC.A24ANARCHY.ORG
+    </button>
+    <div id="msg">CONNECTION DATA COPIED</div>
+</div>
+
+<div class="container">
+    <div class="grid">
+        <div class="card">
+            <div class="number" id="player-count">142</div>
+            <div class="label">PLAYERS ONLINE</div>
+        </div>
+        <div class="card">
+            <div class="number" id="world-size">6400.00 GB</div>
+            <div class="label">WORLD SIZE</div>
+        </div>
+        <div class="card">
+            <div class="number" id="days-reset">1204</div>
+            <div class="label">DAYS WITHOUT RESET</div>
+        </div>
+    </div>
+
+    <div class="logs">
+        <h2>SERVER ARCHIVE</h2>
+        <p>[2019] Server created</p>
+        <p>[2021] Spawn civilization collapsed</p>
+        <p>[2024] Unknown player discovered forbidden chunks</p>
+        <p class="red">[2026] SERVER STILL ONLINE</p>
+    </div>
+</div>
+
+<footer>
+    © 2026 A24ANARCHY PROJECT
+    <br>
+    WE ARE NOT RESPONSIBLE FOR LOST ITEMS
+</footer>
+
+<script>
+    // Копіювання IP
+    function copyIP() {
+        navigator.clipboard.writeText("mc.a24anarchy.org");
+        let m = document.getElementById("msg");
+        m.style.opacity = 1;
+        setTimeout(() => {
+            m.style.opacity = 0;
+        }, 2000);
+    }
+
+    // Рандомізація та анімація гравців
+    const playerCountEl = document.getElementById('player-count');
+    function animatePlayers() {
+        const currentPlayers = parseInt(playerCountEl.innerText);
+        const randomPlayers = Math.floor(Math.random() * (16 - 12 + 1)) + 12;
+        animateNumber(playerCountEl, randomPlayers, 1000); // 1с анімація
+    }
+    animatePlayers(); // Ініціалізація анімації
+    setInterval(animatePlayers, 5000); // Оновлення кожні 5 секунд
+
+    // Поступове збільшення та анімація розміру світу
+    let worldSizeGB = 64.00;
+    const worldSizeEl = document.getElementById('world-size');
+    
+    function animateWorldSize() {
+        // Додаємо випадкове значення від 0.01 до 0.15 GB
+        const increment = (Math.random() * 0.14) + 0.01;
+        worldSizeGB += increment;
+        animateNumber(worldSizeEl, worldSizeGB, 800, 2); // 0.8с анімація, 2 знаки після коми
+    }
+    animateWorldSize(); // Ініціалізація анімації
+    setInterval(animateWorldSize, 3000); // Оновлення кожні 3 секунди
+
+    // Анімація днів без перезавантаження при завантаженні
+    const daysResetEl = document.getElementById('days-reset');
+    const initialDays = parseInt(daysResetEl.innerText);
+    animateNumber(daysResetEl, initialDays, 1000); // 1с анімація
+
+    // Універсальна функція для анімації чисел
+    function animateNumber(element, end, duration, decimalPlaces = 0) {
+        let currentText = element.innerText;
+        // Видаляємо всі нецифрові символи та крапки
+        let start = parseFloat(currentText.replace(/[^0-9.]/g, ''));
+        
+        // Визначаємо одиниці виміру (наприклад, GB)
+        const unitMatch = currentText.match(/[a-zA-Z]+/g);
+        const suffix = unitMatch ? unitMatch.join(' ') : '';
+
+        let startTime = null;
+
+        function step(currentTime) {
+            if (!startTime) startTime = currentTime;
+            const progress = Math.min((currentTime - startTime) / duration, 1);
+            
+            // Ефект "ease-out"
+            const easeOutProgress = 1 - Math.pow(1 - progress, 2); 
+            
+            const currentValue = start + easeOutProgress * (end - start);
+            element.innerText = currentValue.toFixed(decimalPlaces) + (suffix ? ' ' + suffix : '');
+
+            if (progress < 1) {
+                window.requestAnimationFrame(step);
+            }
+        }
+
+        window.requestAnimationFrame(step);
+    }
+</script>
+
+</body>
+</html>
