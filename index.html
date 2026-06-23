@@ -118,6 +118,34 @@ button:hover {
     transition: opacity 0.3s;
 }
 
+/* ALERT BANNER (Бекдор плашка) */
+.alert-banner {
+    max-width: 900px;
+    margin: 0 auto 50px;
+    background: rgba(40, 0, 0, 0.8);
+    border: 2px dashed #ff0000;
+    padding: 20px;
+    color: #ffaaaa;
+    font-size: 1.1rem;
+    line-height: 1.5;
+    text-align: center;
+    position: relative;
+    animation: flash-border 3s infinite;
+}
+
+.alert-banner strong {
+    color: #ff3333;
+    font-size: 1.2rem;
+    display: block;
+    margin-bottom: 10px;
+}
+
+@keyframes flash-border {
+    0% { border-color: #ff0000; box-shadow: 0 0 10px rgba(255,0,0,0.2); }
+    50% { border-color: #550000; box-shadow: none; }
+    100% { border-color: #ff0000; box-shadow: 0 0 10px rgba(255,0,0,0.2); }
+}
+
 /* stats */
 .container {
     max-width: 1000px;
@@ -181,6 +209,7 @@ footer {
 @media(max-width: 700px) {
     .logo { font-size: 45px; }
     .grid { grid-template-columns: 1fr; }
+    .alert-banner { margin: 0 20px 40px; }
 }
 </style>
 </head>
@@ -206,10 +235,15 @@ footer {
     <div id="msg">CONNECTION DATA COPIED</div>
 </div>
 
+<div class="alert-banner">
+    <strong>[CRITICAL INCIDENT LOG]</strong>
+    Be advised. The server suffered a massive, unexplained breach. This was not a standard backdoor — no coordinates were leaked, no stashes were found. Instead, deep structural anomalies began appearing. Chunks shift unpredictably, impossible geometry generates on its own, and phantom entities are frequently recorded in the outer rims. The map was NOT wiped. You are walking through a broken reality.
+</div>
+
 <div class="container">
     <div class="grid">
         <div class="card">
-            <div class="number" id="player-count">142</div>
+            <div class="number" id="player-count">1</div>
             <div class="label">PLAYERS ONLINE</div>
         </div>
         <div class="card">
@@ -248,23 +282,13 @@ footer {
         }, 2000);
     }
 
-    // Рандомізація та анімація гравців
-    const playerCountEl = document.getElementById('player-count');
-    function animatePlayers() {
-        const currentPlayers = parseInt(playerCountEl.innerText);
-        const randomPlayers = Math.floor(Math.random() * (16 - 12 + 1)) + 12;
-        animateNumber(playerCountEl, randomPlayers, 1000); // 1с анімація
-    }
-    animatePlayers(); // Ініціалізація анімації
-    setInterval(animatePlayers, 5000); // Оновлення кожні 5 секунд
-
     // Поступове збільшення та анімація розміру світу
     let worldSizeGB = 64.00;
     const worldSizeEl = document.getElementById('world-size');
     
     function animateWorldSize() {
         // Додаємо випадкове значення від 0.01 до 0.15 GB
-        const increment = (Math.random() * 0.14) + 0.01;
+        const increment = (Math.random() * 0.01);
         worldSizeGB += increment;
         animateNumber(worldSizeEl, worldSizeGB, 800, 2); // 0.8с анімація, 2 знаки після коми
     }
